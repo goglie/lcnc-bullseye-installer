@@ -6,6 +6,23 @@ Typically I use the xfce nonfree iso   (direct link removed as it changes too mu
 
 When doing the install do NOT set a root password.  If you do you will have to add your user to the sudo group.  Search google for how to do that.
 
+#Add user to Sudoer
+su root -> Enter password 
+sudo usermod -aG sudo [USER]
+*Reboot after this command and test if your user is sudoer
+
+#Install Open SSH Server
+sudo apt install openssh-server
+
+#AutoLogon
+Edit lightdm conf file
+sudo nano /etc/lightdm/lightdm.conf
+Uncomment and complet file (only in the [Seat] Section) autologin-user=username
+
+#Disable DPMS (screensaver,etc..)
+
+
+
 1. Ensure git is installed:
 
 `sudo apt install git`
