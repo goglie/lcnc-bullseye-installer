@@ -20,6 +20,13 @@ sudo nano /etc/lightdm/lightdm.conf
 Uncomment and complet file (only in the [Seat] Section) autologin-user=username
 
 #Disable DPMS (screensaver,etc..)
+sudo nano /home/[USER]/.bashrc
+
+At the end of the file I added this
+# setting to stop screen from going to sleep
+xset s off
+xset s noblank
+xset -dpms
 
 
 
