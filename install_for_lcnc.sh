@@ -62,9 +62,9 @@ then
 	# set up the build locations for self build
 	CPUS=`nproc`
 	mkdir ~/dev/linuxcnc
-	git clone https://github.com/LinuxCNC/linuxcnc.git ~/dev/linuxcnc/rip
+	git clone https://github.com/goglie/linuxcnc.git ~/dev/linuxcnc/rip
 	cd ~/dev/linuxcnc/rip/
-	git checkout 2.9
+	git pull
 	VERSION=`head -n1 debian/changelog |cut -f2 -d' ' | tr -d "()" | sed -e 's/^[0-9]://' `
 	cd src/
 	./autogen.sh
@@ -104,36 +104,6 @@ then
 else
 	python3 -m pip install qtpyvcp
 fi
-
-# Install probe basic
-zenity --question --text="Install ProbeBasic user interface.\n\nINSTALL Yes or No?" --no-wrap --ok-label="yes" --cancel-label="no"
-CHOICE=$?
-
-if [ $CHOICE -eq 0 ]
-then
-	if [ $DEVELOPER -eq 0 ]
-	then
-		# user install
-		echo "User ProbeBasic install started"
-	else
-		# developer install
-		echo "Developer ProbeBasic install started"
-		cd ~/dev
-		git clone https://github.com/kcjengr/probe_basic.git
-		git clone https://github.com/kcjengr/qtpyvcp.conversational-gcode.git
-		
-		cd ~/dev/probe_basic
-		git checkout origin/python3
-		qcompile .
-		python3 -m pip install --no-deps -e .
-		cp -r ~/dev/probe_basic/config/probe_basic/ ~/linuxcnc/configs/
-		
-		cd ~/dev/qtpyvcp.conversational-gcode
-		git checkout origin/python3
-		python3 -m pip install -e .
-	fi
-fi
-
 
 zenity --info \
 	--title="Installation Finished" \
